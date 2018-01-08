@@ -12,11 +12,4 @@ env:
   - secure: k7Gi9XUMtvaXMxQRKqjhtcFUrP0eNSwh1TgoOg88Cr1/z5CQF6Jb7SNkrWg54Sdry88TjGOpfuq0qvjeCTNSlVt1TJKfT3ptQ8YEATevgvxgbgv4j54IRy/fdkoqANon18lA79fIz9595KGMIQKMW5s8P/I53Yf8mF+o/f/t+BYyo3V9lqgJXpkrJYPgKButrStfis32b23fhfkENQiKL5kGyQWUeOq9NdFysB8htAFlcyPqvmtlikzGd/Jq+Z2gRLYCkE0n6bIdN35tF2umQAWjcL9dVrcjvvAPpPFB/SU4NZkoTL3ZHIivKlpM+CB11Zp+d21qfncpUNwMlB8If/XEGtXMn47d9maWBxW0Q1Q3v4eizL9WD7zWyZxpnI6lnI7j84skolaz3AXxkmJgoE6cS7J8JmjTio3N38qshuasecfYl9Dk58FFwGZtbEDV+uOhiClrvjl5vNlUfvaf9k3jDnhqFcwIoAJg5OvdkRuUm/QgA6ptbLjjyCTRrL3Qi4lYzg5GaQeqPOCoY1CJSqn6wHD6cLhYulboEfFSm7YqzFA9s2Q2LNr8rlpLEIs0u+9OIYlRu0SadqeH/x//L4iDgBCc/WzHsfB3Owr4QheiDpzFqleyLLyTzxkFFghXE8yCNO9/9QWJn7/RAiu6Q5b+QZiyRD+92rsVgUMd63I=
   - COMMIT=${TRAVIS_COMMIT::8}
 
-after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - export REPO=andyfangdz/chronix
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker build -f Dockerfile -t $REPO:$COMMIT .
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO
+script: build.sh
